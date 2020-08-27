@@ -1,21 +1,16 @@
 import os
-import logging.handlers
+import logging.config
 from dotenv import load_dotenv
-from bot import Bot
-from db import DB
+from modules.bot import Bot
+from modules.db import DB
 
 
 def init():
     load_dotenv()
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+    basepath = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+    logging.config.fileConfig(os.path.join(basepath, 'logger.conf'))
     logger = logging.getLogger(__name__)
-    log_filename = os.path.join(os.path.dirname(__file__), 'logfile.log')
-    log_handler = logging.handlers.RotatingFileHandler(log_filename, maxBytes=1000000, backupCount=5)
-    log_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    log_handler.setFormatter(log_formatter)
-    logger.addHandler(log_handler)
-
-    logging.info('App init')
+    logger.info('App init complete')
 
 
 def main():
