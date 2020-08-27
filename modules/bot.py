@@ -20,9 +20,10 @@ class Bot:
         self.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, self.handler_message))
 
         self.updater.start_polling()
-        self.updater.idle()
 
         logging.info('Telegram bot init complete')
+
+        self.updater.idle()
 
     def handler_error(self, update: Update, context: CallbackContext):
         logging.error('Update "%s" caused error "%s"', update, context)
