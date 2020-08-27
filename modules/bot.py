@@ -44,6 +44,8 @@ class Bot:
             for item in db_record:
                 reply_message = reply_message + f'- {item["stock"]}: {item["count"]}\n'
         else:
+            logging.info('No records found for this SKU')
+
             reply_message = 'Не найдено записей с указанным SKU'
 
         update.message.reply_text(reply_message, parse_mode=ParseMode.MARKDOWN)

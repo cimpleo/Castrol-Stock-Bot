@@ -5,10 +5,10 @@ class DB:
     data = dict()
 
     def __init__(self, table_file):
-        wb: Workbook = load_workbook(filename=table_file)
-        sheets = wb.get_sheet_names()
-
         try:
+            wb: Workbook = load_workbook(filename=table_file)
+            sheets = wb.get_sheet_names()
+
             sheet = wb[sheets[0]]
             row_count = sheet.max_row
 
@@ -26,6 +26,9 @@ class DB:
                 self.data[key].append(record)
 
         except IndexError:
-            print('No sheets found in the data file')
+            logging.warning('No sheets found in the data file')
+
+        except FileNotFoundError:
+            logging.error(f'DB file ({table_file}) not found. Proceed with empty DB.')
 
         logging.info(f'Table loaded: {self.data}')
