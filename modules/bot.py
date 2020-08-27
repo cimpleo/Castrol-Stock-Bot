@@ -32,7 +32,7 @@ class Bot:
 
     def handler_message(self, update: Update, context: CallbackContext):
         logging.info(f'Message received: {update.message.text}')
-        input_message = update.message.text.strip()
+        input_message = update.message.text.strip().upper()
 
         reply_message: str = ''
         if input_message in self.db.data:

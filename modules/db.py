@@ -19,7 +19,7 @@ class DB:
                 count = sheet.cell(column=4, row=row).value
                 record = dict(sku=sku, name=name, stock=stock, count=count)
 
-                key: str = record['sku'].strip()
+                key: str = record['sku'].strip().upper()
                 if key not in self.data:
                     self.data[key] = list()
 
